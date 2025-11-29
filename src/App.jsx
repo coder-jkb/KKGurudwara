@@ -146,13 +146,85 @@ export default function GurudwaraApp() {
       </main>
 
       {/* Footer & Role Switcher */}
-      <footer className="bg-gray-800 text-gray-300 py-8 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <div>Gurudwara Footer</div>
-            <div className="flex gap-2">
-                <button onClick={() => setIsAdmin(false)} className="px-2 py-1 bg-orange-500 text-white rounded">Devotee</button>
-                <button onClick={() => setIsAdmin(true)} className="px-2 py-1 bg-red-600 text-white rounded">Admin</button>
+      <footer className="bg-gray-900 text-gray-300 mt-auto">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <img src="/logo.jpg" alt="Gurudwara Logo" className="h-10 w-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-white font-bold">Gurudwara Shri Dashmesh Darbar</p>
+                  <p className="text-xs text-gray-400">Koparkhairane • Navi Mumbai</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-400">
+                Seva • Simran • Samarpan. A community space dedicated to Langar, education, and healthcare.
+              </p>
+              <a
+                href="https://maps.app.goo.gl/pHYMBeBBBaVV54dr6"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 text-sm mt-4"
+              >
+                <MapPin className="h-4 w-4" /> View on Google Maps
+              </a>
             </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-3">Quick Links</h4>
+              <ul className="space-y-2 text-sm">
+                <li><button onClick={() => setActiveTab('home')} className="hover:text-white">Home</button></li>
+                <li><button onClick={() => setActiveTab('about')} className="hover:text-white">About Us</button></li>
+                <li><button onClick={() => setActiveTab('gallery')} className="hover:text-white">Gallery</button></li>
+                <li><button onClick={() => setActiveTab('booking')} className="hover:text-white">Bookings</button></li>
+                {isAdmin && (
+                  <li><button onClick={() => setActiveTab('admin')} className="hover:text-white">Admin Dashboard</button></li>
+                )}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-white font-semibold mb-3">Contact</h4>
+              <ul className="space-y-2 text-sm">
+                <li>Sector 23, Kopar Khairane, Navi Mumbai</li>
+                <li>Phone: +91-XXXXXXXXXX</li>
+                <li>Email: info@dashmeshdarbar.org</li>
+                <li>Open: Daily 4:30 AM – 9:30 PM</li>
+              </ul>
+            </div>
+
+            {/* Demo Role Toggle */}
+            <div>
+              <h4 className="text-white font-semibold mb-3">Demo Mode</h4>
+              <div className="bg-gray-800 p-3 rounded-lg flex items-center gap-3 text-sm w-fit">
+                <span className="uppercase font-bold tracking-wider text-gray-400">Role:</span>
+                <button 
+                  onClick={() => setIsAdmin(false)}
+                  className={`px-3 py-1 rounded ${!isAdmin ? 'bg-orange-600 text-white' : 'bg-gray-700 hover:bg-gray-600'}`}
+                >
+                  Devotee
+                </button>
+                <button 
+                  onClick={() => setIsAdmin(true)}
+                  className={`px-3 py-1 rounded ${isAdmin ? 'bg-red-600 text-white' : 'bg-gray-700 hover:bg-gray-600'}`}
+                >
+                  Admin
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">Toggle to preview User vs Admin features.</p>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-gray-500">© {new Date().getFullYear()} Gurudwara Shri Dashmesh Darbar. All rights reserved.</p>
+            <div className="text-xs text-gray-500 flex items-center gap-4">
+              <span>Privacy Policy</span>
+              <span>Terms of Service</span>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
@@ -270,8 +342,22 @@ function AboutView() {
              <h3 className="font-bold text-xl mb-4">Visit Us</h3>
              <p className="flex items-start gap-2">
                <MapPin className="w-5 h-5 text-orange-600 mt-1 flex-shrink-0" />
-               <span>Sector 9, Kopar Khairane, Navi Mumbai, Maharashtra 400709</span>
+               <span>Sardar Gurucharan Singh Kocher Marg, Sector 23, Kopar Khairane, Navi Mumbai, Maharashtra 400709</span>
              </p>
+             <div className="mt-6 rounded-xl overflow-hidden border border-gray-200">
+               <div className="aspect-video w-full">
+                 <iframe 
+                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15080.672788399903!2d72.9792792871582!3d19.100275799999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c0d5d9e7af77%3A0xd74cef6eb6431d11!2sGURUDWARA%20SHRI%20DASHMESH%20DARBAR%2C%20KOPARKHAIRANE!5e0!3m2!1sen!2sin!4v1764409209589!5m2!1sen!2sin"
+                   width="100%" 
+                   height="450" 
+                   style={{ border: 0 }} 
+                   allowFullScreen="" 
+                   loading="lazy" 
+                   referrerPolicy="no-referrer-when-downgrade"
+                   title="Gurudwara Shri Dashmesh Darbar Location"
+                 ></iframe>
+               </div>
+             </div>
           </div>
         </div>
       </div>
