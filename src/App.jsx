@@ -192,7 +192,7 @@ export default function GurudwaraApp() {
                 <li>Sector 23, Kopar Khairane, Navi Mumbai</li>
                 <li>Phone: +91-XXXXXXXXXX</li>
                 <li>Email: info@dashmeshdarbar.org</li>
-                <li>Open: Daily 4:30 AM – 9:30 PM</li>
+                <li>Open: Daily 4:30 AM - 9:30 PM</li>
               </ul>
             </div>
 
