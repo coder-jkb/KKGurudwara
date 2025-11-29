@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, query, onSnapshot, doc, updateDoc, deleteDoc, serverTimestamp, orderBy } from 'firebase/firestore';
-import { Calendar, Home, Info, Image, Lock, Menu, X, CheckCircle, XCircle, MapPin, Utensils, Heart, Shield, BookOpen } from 'lucide-react';
+import { Calendar, Home, Info, Image, Lock, Menu, X, CheckCircle, XCircle, MapPin, Utensils, Heart, Shield, CalendarCheck, BookText } from 'lucide-react';
 import { auth, db } from './firebase'; // Local import
 
 export default function GurudwaraApp() {
@@ -44,7 +44,7 @@ export default function GurudwaraApp() {
     { id: 'home', label: 'Home', icon: Home },
     { id: 'about', label: 'About Us', icon: Info },
     { id: 'gallery', label: 'Gallery', icon: Image },
-    { id: 'booking', label: 'Bookings', icon: BookOpen },
+    { id: 'booking', label: 'Bookings', icon: CalendarCheck },
   ];
 
   if (loading || !user) {
@@ -181,13 +181,16 @@ function HomeView({ setActiveTab, user, db, appId }) {
       <div className="relative bg-orange-800 rounded-2xl overflow-hidden shadow-2xl h-[30em] flex items-center justify-center text-center px-4">
         {/* Note: Ensure this image URL is valid or replace with 'gurudwara-inside-bg-1x1.png' if you have the file locally */}
         <div 
-           className="absolute inset-0 opacity-30 bg-cover bg-position-[0 -24em]"
-           style={{ backgroundImage: "url('gurudwara-inside-bg-1x1.png')" }}
+           className="absolute inset-0 opacity-30 bg-cover"
+           style={{ 
+             backgroundImage: "url('gurudwara-inside-bg-1x1.png')",
+             backgroundPosition: "0 -24em"
+           }}
         />
         <div className="relative z-10 max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">Seva, Simran, Samarpan</h1>
           <p className="text-orange-100 text-lg md:text-xl mb-8">
-            Operating with the heart of an NGO. Serving humanity through Langar, Education, and Healthcare.
+            Where the Light of Guru Gobind Singh Ji Shines Through Seva. Join us in serving humanity with love and devotion.
           </p>
           <div className="flex justify-center gap-4">
             <button 
@@ -324,7 +327,7 @@ function BookingView({ user, db, appId }) {
 
   const bookingTypes = [
     { id: 'Langar Seva', icon: Utensils, desc: 'Sponsor a Langar meal' },
-    { id: 'Akhand Path', icon: BookOpen, desc: 'Book Akhand Path Sahib' },
+    { id: 'Akhand Path', icon: BookText, desc: 'Book Akhand Path Sahib' },
     { id: 'Anand Karaj', icon: Heart, desc: 'Wedding Ceremony' },
     { id: 'Hall Booking', icon: Home, desc: 'General Event / Function' }
   ];
