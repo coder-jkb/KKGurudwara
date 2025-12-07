@@ -66,9 +66,11 @@ export default function GurudwaraApp() {
       try {
         // Enable local persistence so user sessions survive page reloads for 24+ hours
         await setPersistence(auth, browserLocalPersistence);
-        // Only sign in anonymously if there is no existing user to avoid
-        // overwriting a recently authenticated session.
-        if (!auth.currentUser) await signInAnonymously(auth);
+        // if (!auth.currentUser) await signInAnonymously(auth);
+        // NOTE: Auto anonymous sign-in has been disabled to avoid creating
+        // unwanted anonymous users in the Firebase project. Anonymous sign-in
+        // will still be available via the explicit "Continue as guest" button
+        // in the login view (`src/components/LoginView.jsx`).
       } catch (error) {
         console.error("Auth error:", error);
       }
