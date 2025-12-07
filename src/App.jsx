@@ -238,27 +238,20 @@ export default function GurudwaraApp() {
                 </button>
               ))}
                 {/* Unified Admin button (hidden on home). Opens admin route; LoginView will be shown if not admin/logged-in. */}
-                {/* User controls: always show current auth status (email, guest, or signed out) */}
-                <div className="flex items-center gap-2">
-                  {user && user.email ? (
-                    <>
-                      <span className="text-sm px-3 py-2 rounded-md bg-orange-600/20">{user.email}</span>
-                      <button
-                        onClick={() => setActiveTab('admin')}
-                        className="px-3 py-2 rounded-md text-sm bg-orange-600 hover:bg-orange-700"
-                      >Admin</button>
-                      <button
-                        onClick={async () => { setExplicitSignedOut(true); await signOut(auth); setActiveTab('home'); }}
-                        className="px-3 py-2 rounded-md text-sm bg-gray-700 hover:bg-gray-600"
-                      >Sign Out</button>
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm px-3 py-2 rounded-md bg-gray-700/20">{explicitSignedOut ? 'Signed out' : 'Guest'}</span>
-                      <button onClick={() => setActiveTab('admin')} className="px-3 py-2 rounded-md text-sm bg-gray-700 hover:bg-gray-600">Sign In</button>
-                    </div>
-                  )}
-                </div>
+                {/* User controls: show email and actions only if signed in */}
+                {user && user.email && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm px-3 py-2 rounded-md bg-orange-600/20">{user.email}</span>
+                    <button
+                      onClick={() => setActiveTab('admin')}
+                      className="px-3 py-2 rounded-md text-sm bg-orange-600 hover:bg-orange-700"
+                    >Admin</button>
+                    <button
+                      onClick={async () => { setExplicitSignedOut(true); await signOut(auth); setActiveTab('home'); }}
+                      className="px-3 py-2 rounded-md text-sm bg-gray-700 hover:bg-gray-600"
+                    >Sign Out</button>
+                  </div>
+                )}
             </div>
 
             {/* Mobile menu button */}
@@ -286,14 +279,12 @@ export default function GurudwaraApp() {
                   <span className="flex items-center gap-2"><item.icon className="w-4 h-4" /> {item.label}</span>
                 </button>
               ))}
-              {/* Sign out for authenticated users (mobile) */}
+              {/* Sign in/out controls (mobile): show email and admin/sign-out only if signed in */}
               {user && user.email && (
-                <button onClick={() => { setIsMobileMenuOpen(false); setActiveTab('admin'); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 bg-orange-600">Admin</button>
-              )}
-              {user && user.email ? (
-                <button onClick={async () => { setExplicitSignedOut(true); await signOut(auth); setIsMobileMenuOpen(false); setActiveTab('home'); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 bg-gray-800">Sign Out</button>
-              ) : (
-                <button onClick={() => { setIsMobileMenuOpen(false); setActiveTab('admin'); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 bg-gray-800">Sign In</button>
+                <>
+                  <button onClick={() => { setIsMobileMenuOpen(false); setActiveTab('admin'); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 bg-orange-600">Admin</button>
+                  <button onClick={async () => { setExplicitSignedOut(true); await signOut(auth); setIsMobileMenuOpen(false); setActiveTab('home'); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 bg-gray-800">Sign Out</button>
+                </>
               )}
             </div>
           </div>
