@@ -8,6 +8,16 @@ Follow these steps to run the application on your local machine using **Vite** a
 
 * **Node.js v16 or higher**
 * **Yarn** installed
+  Recommended ways to get Yarn:
+
+  - If your Node version supports Corepack (Node 16.10+):
+
+  ```bash
+  corepack enable
+  corepack prepare yarn@stable --activate
+  ```
+
+  - Or install via npm:
 
   ```bash
   npm install -g yarn
@@ -23,6 +33,91 @@ yarn create vite gurudwara-app --template react
 cd gurudwara-app
 yarn
 ```
+
+## Admin setup & testing
+
+This project supports three ways to grant admin access (use one or more):
+
+- Environment fallback: set `VITE_ADMIN_UIDS` to a comma-separated list of admin UIDs in your `.env` (useful for local testing).
+- Firestore UID: create a document at `admins/{uid}` (document ID equals the user's `uid`).
+- Firestore email: create a document at `admins_by_email/{email}` (document ID equals the user's email in lowercase).
+
+How admin detection works (in order):
+1. If the current user's `uid` is present in `VITE_ADMIN_UIDS`, they are admin.
+2. Else, the app checks `admins/{uid}` in Firestore.
+3. Else, if the user has an email, the app checks `admins_by_email/{email}`.
+
+Grant admin locally for testing:
+
+1. Start the app and register/sign-in via the `Account` page (top nav). Note the signed-in user's `uid` from the browser console or the Firebase Auth panel.
+2. Option A (env): Add the UID to `.env` like:
+
+```env
+VITE_ADMIN_UIDS=uid1,uid2
+```
+
+Then restart the dev server.
+
+2. Option B (Firestore by UID): In Firebase Console → Firestore → create a collection `admins` and add a document whose ID equals the UID.
+
+3. Option C (Firestore by email): Create a document in `admins_by_email` where the document ID is the user's email lowercased.
+
+Inviting admins from the app:
+
+- Once you have an admin account, open the **Admin Panel**. There is an **Invite Admin** box where an admin can add another admin by email (creates a `admins_by_email/{email}` doc) or directly by UID (`admins/{uid}`).
+
+Testing flow summary:
+
+1. Register a user via `Account` → `Register` (or sign in using an existing account).
+2. Add that user's UID to `.env` or add an admin doc in Firestore as described above.
+3. Reload the app. The top nav should show the **Admin Panel** button. Open it to access admin tools.
+
+Security note:
+
+This simple invite mechanism (using Firestore doc existence) is intended for small teams and local testing. For production use, enforce stricter server-side checks (Cloud Functions + Admin SDK) and secure your Firestore rules so only authorized operators can add admin entries.
+
+Firestore rules (example)
+------------------------
+Add these rules to your Firestore rules to protect admin documents and registration requests. Adjust `request.auth.uid` checks to match your security model.
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow admins collection reads only to authenticated users; writes only by super_admins
+    match /admins/{adminId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && (
+        // super_admins can write
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'super_admin'
+      );
+    }
+
+    // admins_by_email - only super_admins can create/update
+    match /admins_by_email/{email} {
+      allow read: if request.auth != null && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'super_admin';
+      allow write: if request.auth != null && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'super_admin';
+    }
+
+    // admin_requests - anyone authenticated can create their own request; super_admins can read and update
+    match /admin_requests/{reqId} {
+      allow create: if request.auth != null && request.auth.uid == reqId;
+      allow read, update: if request.auth != null && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'super_admin';
+    }
+
+    // Other data rules (default): authenticated reads/writes as appropriate for your app
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+
+Notification functions: removed
+--------------------------------
+The example Cloud Functions and functions/ folder have been removed from this repository to keep the local dev workflow simple. Admin and super-admin behavior is implemented in the frontend using Firestore documents (`admins`, `admins_by_email`, `admin_requests`).
+
 
 ---
 
