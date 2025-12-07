@@ -1,0 +1,7 @@
+# SPA routing - serve index.html for app routes
+/about 200
+/gallery 200
+/booking 200
+/login 200
+/admin 200
+/* /index.html 200
