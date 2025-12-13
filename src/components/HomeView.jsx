@@ -96,7 +96,7 @@ export default function HomeView({ setActiveTab, user, db, appId }) {
 
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <Calendar className="w-6 h-6 text-orange-600" /> Upcoming Events
+          <Calendar className="w-6 h-6 text-orange-600" /> Upcoming Events & Bookings
         </h2>
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded mb-4">
