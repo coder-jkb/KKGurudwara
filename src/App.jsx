@@ -318,77 +318,111 @@ export default function GurudwaraApp() {
       </main>
 
       {/* Footer & Role Switcher */}
-      <footer className="bg-gray-900 text-gray-300 mt-auto">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <img src="/logo.jpg" alt="Gurudwara Logo" className="h-10 w-10 rounded-full object-cover" />
-                <div>
-                  <p className="text-white font-bold">Gurudwara Shri Dashmesh Darbar</p>
-                  <p className="text-xs text-gray-400">Koparkhairane • Navi Mumbai</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-400">
-                Seva • Simran • Samarpan. A community space dedicated to Langar, education, and healthcare.
-              </p>
-              <a
-                href="https://maps.app.goo.gl/pHYMBeBBBaVV54dr6"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 text-sm mt-4"
-              >
-                <MapPin className="h-4 w-4" /> View on Google Maps
-              </a>
-            </div>
 
-            {/* Social Media */}
-            <div>
-              <h4 className="text-white font-semibold mb-3">Follow Us</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="https://www.facebook.com/kkgurudwara" className="hover:text-white">Facebook</a></li>
-                <li><a href="https://www.instagram.com/kkgurudwara" className="hover:text-white">Instagram</a></li>
-                <li><a href="https://www.youtube.com/kkgurudwara" className="hover:text-white">YouTube</a></li>
-                <li><a href="https://twitter.com/kkgurudwara" className="hover:text-white">Twitter</a></li>
-              </ul>
-            </div>
+{/* Footer */}
+<footer className="bg-gray-950 text-gray-400 mt-auto">
+  {/* TOP FOOTER */}
+  <div className="max-w-7xl mx-auto px-6 py-14">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
 
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-3">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li><button onClick={() => setActiveTab('home')} className="hover:text-white">Home</button></li>
-                <li><button onClick={() => setActiveTab('about')} className="hover:text-white">About Us</button></li>
-                <li><button onClick={() => setActiveTab('gallery')} className="hover:text-white">Gallery</button></li>
-                <li><button onClick={() => setActiveTab('booking')} className="hover:text-white">Bookings</button></li>
-                {isAdmin && (
-                  <li><button onClick={() => setActiveTab('admin')} className="hover:text-white">Admin Dashboard</button></li>
-                )}
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="text-white font-semibold mb-3">Contact</h4>
-              <ul className="space-y-2 text-sm">
-                <li>Sector 23, Kopar Khairane, Navi Mumbai</li>
-                <li>Phone: +91-XXXXXXXXXX</li>
-                <li>Email: info@dashmeshdarbar.org</li>
-                <li>Open: Daily 4:30 AM - 9:30 PM</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-500">© {new Date().getFullYear()} Gurudwara Shri Dashmesh Darbar. All rights reserved.</p>
-            <div className="text-xs text-gray-500 flex items-center gap-4">
-              <span>Privacy Policy</span>
-              <span>Terms of Service</span>
-            </div>
+      {/* BRAND */}
+      <div className="lg:col-span-2 md:border-r md:border-solid md:border-gray-800">
+        <div className="flex items-center gap-4 mb-5">
+          <img
+            src="/logo.jpg"
+            alt="Gurudwara Logo"
+            className="h-11 w-11 rounded-full object-cover"
+          />
+          <div>
+            <p className="text-white font-medium text-base">
+              Gurudwara Shri Dashmesh Darbar
+            </p>
+            <p className="text-xs text-gray-500">
+              Koparkhairane • Navi Mumbai
+            </p>
           </div>
         </div>
-      </footer>
+
+        <p className="text-sm leading-relaxed max-w-md">
+          Seva • Simran • Samarpan. A community space dedicated to Langar,
+          education, and healthcare.
+        </p>
+
+        <a
+          href="https://maps.app.goo.gl/pHYMBeBBBaVV54dr6"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 mt-5 text-sm text-orange-400 hover:text-orange-300"
+        >
+          <MapPin className="h-4 w-4" />
+          View on Google Maps
+        </a>
+      </div>
+
+      {/* FOLLOW */}
+      <div className="md:border-r md:border-solid md:border-gray-800">
+        <p className="text-s uppercase tracking-wider text-gray-500 mb-4">
+          Follow Us
+        </p>
+        <ul className="space-y-2 text-sm">
+          <li><a className="hover:text-white" href="#">Facebook</a></li>
+          <li><a className="hover:text-white" href="#">Instagram</a></li>
+          <li><a className="hover:text-white" href="#">YouTube</a></li>
+          <li><a className="hover:text-white" href="#">Twitter</a></li>
+        </ul>
+      </div>
+
+      {/* QUICK LINKS */}
+      <div className="md:border-r md:border-solid md:border-gray-800">
+        <p className="text-s uppercase tracking-wider text-gray-500 mb-4">
+          Quick Links
+        </p>
+        <ul className="space-y-2 text-sm">
+          <li><button onClick={() => setActiveTab('home')} className="hover:text-white">Home</button></li>
+          <li><button onClick={() => setActiveTab('about')} className="hover:text-white">About Us</button></li>
+          <li><button onClick={() => setActiveTab('gallery')} className="hover:text-white">Gallery</button></li>
+          <li><button onClick={() => setActiveTab('booking')} className="hover:text-white">Bookings</button></li>
+          {isAdmin && (
+            <li>
+              <button onClick={() => setActiveTab('admin')} className="hover:text-white">
+                Admin Dashboard
+              </button>
+            </li>
+          )}
+        </ul>
+      </div>
+
+      {/* CONTACT */}
+      <div>
+        <p className="text-s uppercase tracking-wider text-gray-500 mb-4">
+          Contact
+        </p>
+        <ul className="space-y-2 text-sm leading-relaxed">
+          <li>Sector 23, Kopar Khairane</li>
+          <li>Phone: +91-XXXXXXXXXX</li>
+          <li>Email: info@dashmeshdarbar.org</li>
+          <li>Daily: 4:30 AM – 9:30 PM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {/* BOTTOM BAR */}
+  <div className="border-t border-gray-800">
+    <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+      <p>
+        © {new Date().getFullYear()} Gurudwara Shri Dashmesh Darbar. All rights reserved.
+      </p>
+      <div className="flex gap-6">
+        <span className="hover:text-white cursor-pointer">Privacy Policy</span>
+        <span className="hover:text-white cursor-pointer">Terms of Service</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
     </div>
   );
 }
