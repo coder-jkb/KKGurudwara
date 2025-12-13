@@ -13,7 +13,10 @@ export default function AdminRequests({ user, db, isSuperAdmin }) {
     const q = query(collection(db, `admin_requests`), where('status', '==', 'pending'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setRequests(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    }, (err) => console.error(err));
+    }, (err) => {
+      console.error(err);
+      setToast({ type: 'error', message: err.message });
+    });
     return () => unsubscribe();
   }, [user, db]);
 

@@ -343,6 +343,17 @@ export default function GurudwaraApp() {
               </a>
             </div>
 
+            {/* Social Media */}
+            <div>
+              <h4 className="text-white font-semibold mb-3">Follow Us</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="https://www.facebook.com/kkgurudwara" className="hover:text-white">Facebook</a></li>
+                <li><a href="https://www.instagram.com/kkgurudwara" className="hover:text-white">Instagram</a></li>
+                <li><a href="https://www.youtube.com/kkgurudwara" className="hover:text-white">YouTube</a></li>
+                <li><a href="https://twitter.com/kkgurudwara" className="hover:text-white">Twitter</a></li>
+              </ul>
+            </div>
+
             {/* Quick Links */}
             <div>
               <h4 className="text-white font-semibold mb-3">Quick Links</h4>
@@ -367,8 +378,6 @@ export default function GurudwaraApp() {
                 <li>Open: Daily 4:30 AM - 9:30 PM</li>
               </ul>
             </div>
-
-            {/* Demo role toggle removed - admin status is determined from Firestore */}
           </div>
 
           <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
